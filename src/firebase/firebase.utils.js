@@ -13,6 +13,34 @@ const config = {
   measurementId: 'G-2YRNDL843L'
 };
 
+// Receives user object returned by google oauth on login;
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  // user auth will be null when user is logged out
+  if (!userAuth) return;
+
+  // reference will tell us if there is a user in the db
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const snapShot = await userRef.get();
+
+  if (!snapShot.exists) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+
+    try {
+      await userRef.set({
+        displayName,
+        email, 
+        createdAt,
+        ...additionalData
+      });
+    } catch (error) {
+      console.log('error creating user', error.message);
+    }
+  }
+
+  return userRef;
+}
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();
