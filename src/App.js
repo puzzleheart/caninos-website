@@ -28,17 +28,12 @@ class App extends Component {
         // subscribe/listen to the userRef, checking for any change in the data, and get the first change
         userRef.onSnapshot(snapShot => {
           // snapShot.data() contains the actual info found in the database
-          this.setState(
-            {
-              currentUser: {
-                id: snapShot.id,
-                ...snapShot.data()
-              }
-            },
-            () => {
-              console.log(this.state);
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
             }
-          );
+          });
         });
       } else {
         // if userAuth is null, that means the user is logging out
