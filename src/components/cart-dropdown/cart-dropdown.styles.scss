@@ -10,15 +10,21 @@
   top: 90px;
   right: 40px;
   z-index: 5;
+  overflow: hidden;
 
   .cart-items {
     height: 240px;
     display: flex;
     flex-direction: column;
     overflow: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   button {
     margin-top: auto;
+    z-index: 1;
   }
 }
