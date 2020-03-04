@@ -24,15 +24,15 @@ const Header = ({ currentUser, hidden }) => (
         SHOP
       </Link>
       <Link to='/contact' className='option'>
-        CONTACT
+        CONTATO
       </Link>
       {currentUser ? (
         <div className='option' onClick={() => auth.signOut()}>
-          SIGN OUT
+          CRIAR CONTA
         </div>
       ) : (
         <Link to='/signin' className='option'>
-          SIGN IN
+          LOGIN
         </Link>
       )}
       <CartIcon />
