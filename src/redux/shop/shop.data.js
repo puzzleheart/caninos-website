@@ -1,6 +1,6 @@
 // This is just placeholder data not related to pet shops at all, to be replaced later.
-const SHOP_DATA = [
-  {
+const SHOP_DATA = {
+  brinquedos: {
     id: 1,
     title: 'Brinquedos',
     routeName: 'brinquedos',
@@ -41,7 +41,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+  acessorios: {
     id: 2,
     title: 'Acessórios',
     routeName: 'acessorios',
@@ -97,7 +97,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+  utilidades: {
     id: 3,
     title: 'Utilidades',
     routeName: 'utilidades',
@@ -132,7 +132,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+  roupas: {
     id: 4,
     title: 'Roupas',
     routeName: 'roupas',
@@ -180,7 +180,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+  camas: {
     id: 5,
     title: 'Camas',
     routeName: 'camas',
@@ -213,13 +213,6 @@ const SHOP_DATA = [
           'https://images-na.ssl-images-amazon.com/images/I/81cx86MGy9L._SL1500_.jpg',
         price: 40
       },
-
-      {
-        id: 35,
-        name: 'Burgundy T-shirt',
-        imageUrl: 'https://i.ibb.co/mh3VM1f/polka-dot-shirt.png',
-        price: 25
-      },
       {
         id: 33,
         name: 'Cama Banana',
@@ -229,6 +222,6 @@ const SHOP_DATA = [
       }
     ]
   }
-];
+}
 
 export default SHOP_DATA;

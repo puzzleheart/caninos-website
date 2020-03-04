@@ -2,19 +2,19 @@ const INITIAL_STATE = {
   sections: [
     {
       title: 'brinquedos',
-      imageUrl: 'https://i.imgur.com/Zoh0VkJ.jpg',
+      imageUrl: 'https://images.madeiramadeira.com.br/product/images/94256880-brinquedo-arco-massageador-arranhador-gatos-com-catnipprd5mjoad8wh6d5a-179-3-600x554.jpg',
       id: 1,
       linkUrl: 'shop/brinquedos'
     },
     {
       title: 'acessórios',
-      imageUrl: 'https://i.imgur.com/dguWqsU.jpg',
+      imageUrl: 'https://http2.mlstatic.com/colar-dog-pingente-cachorro-salsichinha-raca-teckel-e-caixa-D_NQ_NP_930787-MLB31688577875_082019-F.jpg',
       id: 2,
       linkUrl: 'shop/acessorios'
     },
     {
       title: 'utilidades',
-      imageUrl: 'https://i.imgur.com/sQWwQqZ.jpg',
+      imageUrl: 'https://gloimg.gbtcdn.com/gb/pdm-provider-img/straight-product-img/20171229/T016832/T0168320134/source-img/195729-9976.jpg',
       id: 3,
       linkUrl: 'shop/utilidades'
     },
