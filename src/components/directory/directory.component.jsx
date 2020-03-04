@@ -1,56 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
+import { selectDirectorySections } from '../../redux/directory/directory.selectors';
+
 import './directory.styles.scss';
+
 import MenuItem from '../menu-item/menu-item.component';
 
-export default class Directory extends Component {
-  constructor(props) {
-    super(props);
+const Directory = ({ sections }) => (
+  <div className='directory-menu'>
+    {sections.map(({ id, ...otherSectionProps }) => (
+      <MenuItem key={id} {...otherSectionProps} />
+    ))}
+  </div>
+);
 
-    this.state = {
-      sections: [
-        {
-          title: 'brinquedos',
-          imageUrl: 'https://i.imgur.com/Zoh0VkJ.jpg',
-          id: 1,
-          linkUrl: 'shop/brinquedos'
-        },
-        {
-          title: 'acessórios',
-          imageUrl: 'https://i.imgur.com/dguWqsU.jpg',
-          id: 2,
-          linkUrl: 'shop/acessorios'
-        },
-        {
-          title: 'utilidades',
-          imageUrl: 'https://i.imgur.com/sQWwQqZ.jpg',
-          id: 3,
-          linkUrl: 'shop/utilidades'
-        },
-        {
-          title: 'roupas',
-          imageUrl: 'https://i.imgur.com/JOBw8mx.jpg',
-          size: 'large',
-          id: 4,
-          linkUrl: 'shop/roupas'
-        },
-        {
-          title: 'camas',
-          imageUrl: 'https://i.imgur.com/pTgDy9Q.jpg',
-          size: 'large',
-          id: 5,
-          linkUrl: 'shop/camas'
-        }
-      ]
-    };
-  }
+const mapStateToProps = createStructuredSelector({
+  sections: selectDirectorySections
+});
+// const mapStateToProps = state => ({
+//   sections: selectDirectorySections(state)
+// });
 
-  render() {
-    return (
-      <div className='directory-menu'>
-        {this.state.sections.map(({id, ...otherSectionProps}) => (
-          <MenuItem key={id} {...otherSectionProps} />
-        ))}
-      </div>
-    );
-  }
-}
+export default connect(mapStateToProps)(Directory);

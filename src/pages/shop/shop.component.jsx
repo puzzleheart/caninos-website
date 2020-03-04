@@ -1,33 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './shop.styles.scss';
 
-import SHOP_DATA from './shop.data';
-import CollectionPreview from '../../components/collection-preview/collection-preview.component';
+import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
 
-class ShopPage extends Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      // This is just placeholder data not related to pet shops at all, to be replaced later.
-      collections: SHOP_DATA
-    }
-  }
-  
-  render() {
-    const { collections } = this.state;
+const ShopPage = () => (
+  <div className='shop-page'>
+    <CollectionsOverview />
+  </div>
+);
 
-    return (
-      <div className="shop-page">
-        {
-          collections.map(({id, ...otherCollectionProps}) => (
-            <CollectionPreview key={id} {...otherCollectionProps} />
-          ))
-        }
-      </div>
-    );
-  }
-}
 
 export default ShopPage;
