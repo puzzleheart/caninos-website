@@ -10,9 +10,13 @@ import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 import Header from './components/header/header.component';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import {
+  auth,
+  createUserProfileDocument,
+} from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
+
 
 class App extends Component {
   unsubscribeFromAuth = null;
@@ -26,16 +30,15 @@ class App extends Component {
 
         // subscribe/listen to the userRef, checking for any change in the data, and get the first change
         userRef.onSnapshot(snapShot => {
-          // snapShot.data() contains the actual info found in the database
           setCurrentUser({
             id: snapShot.id,
             ...snapShot.data()
           });
         });
-      } else {
-        // if userAuth is null, that means the user is logging out
-        setCurrentUser(null);
       }
+
+      // if userAuth is null, that means the user is logging out
+      setCurrentUser(userAuth);
     });
   }
 

@@ -12,24 +12,26 @@ const config = {
   appId: '1:940908367086:web:9da3254dc7e7802098b7ff',
   measurementId: 'G-2YRNDL843L'
 };
+firebase.initializeApp(config);
 
 // Receives user object returned by google oauth on login;
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   // user auth will be null when user is logged out
   if (!userAuth) return;
 
-  // reference will tell us if there is a user in the db
+  // get the reference to get the snapshot which tells us if there exists a user at the query
   const userRef = firestore.doc(`users/${userAuth.uid}`);
   const snapShot = await userRef.get();
 
   if (!snapShot.exists) {
+    // if using google sign in, displayName and email are available. if not, displayName and email are at additionalData
     const { displayName, email } = userAuth;
     const createdAt = new Date();
 
     try {
       await userRef.set({
         displayName,
-        email, 
+        email,
         createdAt,
         ...additionalData
       });
@@ -39,15 +41,58 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   }
 
   return userRef;
-}
+};
 
-firebase.initializeApp(config);
+export const convertCollectionsSnapshotToMap = collections => {
+  // .docs() holds an array of querySnapshot objects which have the data from each collection
+  const transformedCollection = collections.docs.map(doc => {
+    const { title, items } = doc.data();
+
+    // return the object which we actually want in our redux
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items
+    };
+  });
+  
+  return transformedCollection.reduce((acc, collection) => {
+    acc[collection.title.toLowerCase()] = collection;
+    return acc;
+  }, {});
+};
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account'});
+provider.setCustomParameters({ prompt: 'select_account' });
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
 export default firebase;
+
+export const addCollectionAndItems = async (collectionKey, objectsToAdd) => {
+  const collectionRef = firestore.collection(collectionKey);
+
+  // We need to batch write so if one of the writings fail, all of them fail (no incomplete data in database)
+  const batch = firestore.batch();
+  objectsToAdd.forEach(obj => {
+    const newDocRef = collectionRef.doc();
+    // Instead of directly doing newDocRef.set(), save it in the batch
+    batch.set(newDocRef, obj);
+    console.log(obj);
+  });
+
+  return await batch.commit();
+
+  // THIS FUNCTION SHOULD ONLY BE CALLED WHEN THE 'collectionKey' COLLECTION IN FIREBASE IS EMPTY
+  // CALLING THIS FUNCTION AGAIN WOULD DUPLICATE ALL DATA (if the objectsToAdd are already stored in firebase)!
+
+  // CALL IT LIKE THIS:
+  // addCollectionAndItems(
+  //   'collections',
+  //   // We don't need to pass routeName or Id to firebase
+  //   collectionsArray.map(({ title, items }) => ({ title, items }))
+  // );
+};
