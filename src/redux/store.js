@@ -1,19 +1,22 @@
 import { createStore, applyMiddleware } from 'redux';
 import { persistStore } from 'redux-persist';
 import logger from 'redux-logger';
-import thunk from 'redux-thunk'; 
+import createSagaMiddleware from 'redux-saga';
 
 import rootReducer from './root-reducer';
+import rootSaga from './root-saga';
 
-// While redux-thunk middleware is enabled, any time you attemp to dispatch a function instead of an object, 
-// the middleware will call that function with dispatch method itself as the first argument
-const middlewares = [thunk];
+const sagaMiddleware = createSagaMiddleware();
+
+const middlewares = [sagaMiddleware];
 
 if (process.env.NODE_ENV === 'development') {
   middlewares.push(logger);
 }
 
 export const store = createStore(rootReducer, applyMiddleware(...middlewares));
+
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
 
