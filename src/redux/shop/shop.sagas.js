@@ -1,6 +1,6 @@
 // takeEvery: listens for every action of a specific type that we pass to it
 
-import { takeEvery, call, put } from 'redux-saga/effects';
+import { takeEvery, call, put, all } from 'redux-saga/effects';
 import {
   firestore,
   convertCollectionsSnapshotToMap
@@ -37,4 +37,8 @@ export function* fetchCollectionsStart() {
     ShopActionTypes.FETCH_COLLECTIONS_START,
     fetchCollectionsAsync
   );
+}
+
+export function* shopSagas() {
+  yield all([call(fetchCollectionsStart)]);
 }

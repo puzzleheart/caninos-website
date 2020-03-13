@@ -10,7 +10,7 @@ const INITIAL_STATE = {
       title: 'acessórios',
       imageUrl: 'https://http2.mlstatic.com/colar-dog-pingente-cachorro-salsichinha-raca-teckel-e-caixa-D_NQ_NP_930787-MLB31688577875_082019-F.jpg',
       id: 2,
-      linkUrl: 'shop/acessorios'
+      linkUrl: 'shop/acessórios'
     },
     {
       title: 'utilidades',
