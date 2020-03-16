@@ -27,7 +27,7 @@ const CartDropdown = ({ cartItems, history, dispatch }) => (
     </CartIconContainer>
     <CartDropdownButton
       onClick={() => {
-        history.push('checkout');
+        history.push('/checkout');
         dispatch(toggleCartHidden());
       }}>
       FAZER CHECKOUT
